@@ -1,7 +1,6 @@
 let board = document.querySelector('main');
 let squares;
 let track;
-let ballNumber = 0;
 let intervalTime = 1000;
 
 function makeBoard() {
