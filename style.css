@@ -3,7 +3,7 @@ body {
     flex-direction: column;
     justify-content: center;
     min-height: 80vh;
-    background: #222;
+    background: #111;
 }
 
 main {
@@ -14,14 +14,30 @@ main {
     margin: auto;
 }
 
+#score {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    color: #ddd;
+    text-align: center;
+    line-height: 50px;
+    background: #000;
+}
+
 .square {
     width: 50px;
     height: 50px;
-    outline: 1px solid #666;
+    outline: 1px solid #333;
 }
 
 .track {
-    background: #444;
+    background: #272727;
+}
+
+.switch {
+    background: rgba(19, 15, 90, 0.5);
 }
 
 .ball {
@@ -30,5 +46,30 @@ main {
 }
 
 .hole {
-    background: rgba(19, 15, 90, 0.5);
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 0;
+}
+
+.darkblue {
+    background: darkblue;
+}
+
+.darkred {
+    background: darkred;
+}
+
+.darkgreen {
+    background: darkgreen;
+}
+
+.blue {
+    background: blue;
+}
+
+.red {
+    background: red;
+}
+
+.green {
+    background: green;
 }
