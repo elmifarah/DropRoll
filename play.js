@@ -13,6 +13,9 @@ function makeBoard() {
         squares = document.querySelectorAll('.square');
         square.textContent = i;
         if (i % 7 - 3 === 0 || i === 29 || i === 30 || i === 46 || i === 47) square.classList.add('track');
+        if (i % 7 - 3 === 0) square.classList.add('vertical');
+        if (i === 29 || i === 30 || i === 46 || i === 47) square.classList.add('horizontal');
+
     }
 }
 
@@ -57,8 +60,9 @@ class Switch {
     position = 0;
     direction = 0;
     options = [];
-    constructor(p, d, t) {
+    constructor(p, d, t, a) {
         this.position = p;
+        this.classes = a;
         this.direction = d;
         this.options = t;
         squares[p].dataset.value = t[d];
@@ -72,6 +76,8 @@ class Switch {
             this.direction++;
         }
         squares[this.position].dataset.value = this.options[this.direction];
+        squares[this.position].classList.toggle(this.classes);
+
     }
 }
 
@@ -79,8 +85,8 @@ makeBoard();
 new Hole(66);
 new Hole(28);
 new Hole(48);
-new Switch(31, 0, [2, 3]);
-new Switch(45, 1, [1, 2]);
+new Switch(31, 0, [2, 3], "top-and-left");
+new Switch(45, 1, [1, 2], "top-and-right");
 new Ball().move(ballSpeed);
 
 let ballInterval = function() {
