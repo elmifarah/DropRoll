@@ -1,6 +1,4 @@
 let board = document.querySelector('main');
-let scorecard = document.querySelector('#score');
-let score = 0;
 let squares;
 let track;
 let ballSpeed = 500;
@@ -13,6 +11,7 @@ function makeBoard() {
         square.classList.add('square');
         board.appendChild(square);
         squares = document.querySelectorAll('.square');
+        square.textContent = i;
         if (i % 7 - 3 === 0 || i === 29 || i === 30 || i === 46 || i === 47) square.classList.add('track');
     }
 }
@@ -48,11 +47,9 @@ class Ball {
 }
 
 class Hole {
-    constructor(p, hc, bc) {
+    constructor(p) {
         this.position = p;
         squares[this.position].classList.add('hole');
-        squares[this.position].classList.add(hc);
-        squares[this.position].dataset.color = bc;
     }
 }
 
