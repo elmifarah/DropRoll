@@ -5,6 +5,7 @@ let squares;
 let track;
 let ballSpeed = 500;
 let releaseSpeed = 3000;
+let kill = false;
 
 function makeBoard() {
     for (let i = 0; i < 70; i++) {
@@ -16,26 +17,15 @@ function makeBoard() {
     }
 }
 
-function randomColor() {
-    const ballColors = ['blue', 'red', 'green'];
-    const number = Math.floor(Math.random() * 3);
-    console.log(number);
-    return ballColors[number];
-}
-
 class Ball {
     position = 3;
     offset = 2;
-    color = '';
     constructor() {
-        this.color = randomColor();
         squares[this.position].classList.add('ball');
-        squares[this.position].classList.add(this.color);
     }
     move(interval) {
         let myInterval = setInterval(() => {
             squares[this.position].classList.remove('ball');
-            squares[this.position].classList.remove(this.color);
             if (squares[this.position].classList.contains('switch')) this.offset = +squares[this.position].dataset.value;
             if (this.offset === 0) {
                 this.position -= 7;
@@ -47,20 +37,12 @@ class Ball {
                 this.position -= 1;
             }
             squares[this.position].classList.add('ball');
-            squares[this.position].classList.add(this.color);
             this.checkForHole(myInterval);
         }, interval);
     }
     checkForHole(myInterval) {
         if (squares[this.position].classList.contains('hole')) {
-            squares[this.position].classList.remove(this.color);
             clearInterval(myInterval);
-            if (squares[this.position].dataset.color === this.color) {
-                score++;
-            } else {
-                score--;
-            }
-            scorecard.textContent = score;
         }
     }
 }
@@ -97,30 +79,22 @@ class Switch {
 }
 
 makeBoard();
-new Hole(66, 'darkblue', 'blue');
-new Hole(28, 'darkred', 'red');
-new Hole(48, 'darkgreen', 'green');
+new Hole(66);
+new Hole(28);
+new Hole(48);
 new Switch(31, 0, [2, 3]);
 new Switch(45, 1, [1, 2]);
 new Ball().move(ballSpeed);
 
 let ballInterval = function() {
     new Ball().move(ballSpeed);
-    if (score > 25) {
-        releaseSpeed = 1000;
-    } else if (score > 20) {
-        releaseSpeed = 1600;
-    } else if (score > 15) {
-        releaseSpeed = 2100;
-    } else if (score > 10) {
-        releaseSpeed = 2500;
-    } else if (score > 5) {
-        releaseSpeed = 2800;
+    if (!kill) {
+        setTimeout(ballInterval, releaseSpeed);
     }
-    if (score > -5) setTimeout(ballInterval, releaseSpeed);
 }
 setTimeout(ballInterval, releaseSpeed);
 
 document.addEventListener('keyup', function(event) {
-    if (event.key === 'k') clearTimeout(ballInterval);
+    if (event.key === 'k') kill = !kill;
+    if (!kill) setTimeout(ballInterval, releaseSpeed);
 });
