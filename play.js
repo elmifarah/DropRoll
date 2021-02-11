@@ -1,10 +1,13 @@
-let board = document.querySelector('main');
-let scorecard = document.querySelector('#score');
+const board = document.querySelector('main');
+const scorecard = document.querySelector('#score');
+const ballColors = ['blue', 'red', 'green', 'goldenrod'];
+const holeColors = ['darkblue', 'darkred', 'darkgreen', 'darkgoldenrod'];
 let score = 0;
 let squares;
 let track;
 let ballSpeed = 500;
 let releaseSpeed = 3000;
+let kill = false;
 
 function makeBoard() {
     for (let i = 0; i < 70; i++) {
@@ -12,13 +15,13 @@ function makeBoard() {
         square.classList.add('square');
         board.appendChild(square);
         squares = document.querySelectorAll('.square');
-        if (i % 7 - 3 === 0 || i === 29 || i === 30 || i === 46 || i === 47) square.classList.add('track');
+        square.textContent = i;
+        if (i % 7 - 3 === 0 || i === 29 || i === 30 || i === 33 || i === 40 || i === 46 || i === 47) square.classList.add('track');
     }
 }
 
 function randomColor() {
-    const ballColors = ['blue', 'red', 'green'];
-    const number = Math.floor(Math.random() * 3);
+    const number = Math.floor(Math.random() * 4);
     console.log(number);
     return ballColors[number];
 }
@@ -97,11 +100,13 @@ class Switch {
 }
 
 makeBoard();
-new Hole(66, 'darkblue', 'blue');
-new Hole(28, 'darkred', 'red');
-new Hole(48, 'darkgreen', 'green');
+new Hole(66, holeColors[0], ballColors[0]);
+new Hole(28, holeColors[1], ballColors[1]);
+new Hole(48, holeColors[2], ballColors[2]);
+new Hole(26, holeColors[3], ballColors[3]);
 new Switch(31, 0, [2, 3]);
 new Switch(45, 1, [1, 2]);
+new Switch(47, 1, [0, 1]);
 new Ball().move(ballSpeed);
 
 let ballInterval = function() {
@@ -117,10 +122,13 @@ let ballInterval = function() {
     } else if (score > 5) {
         releaseSpeed = 2800;
     }
-    if (score > -5) setTimeout(ballInterval, releaseSpeed);
+    if (!kill) {
+        if (score > -5) setTimeout(ballInterval, releaseSpeed);
+    }
 }
 setTimeout(ballInterval, releaseSpeed);
 
 document.addEventListener('keyup', function(event) {
-    if (event.key === 'k') clearTimeout(ballInterval);
+    if (event.key === 'k') kill = !kill;
+    if (!kill) setTimeout(ballInterval, releaseSpeed);
 });
