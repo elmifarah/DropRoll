@@ -1,3 +1,7 @@
+html {
+    --track-color: greenyellow;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -33,7 +37,40 @@ main {
 }
 
 .track {
-    background: #272727;
+    position: relative;
+}
+
+.track:before {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 0;
+    left: 0;
+}
+
+.vertical:before {
+    border-left: 2px solid var(--track-color);
+    border-right: 2px solid var(--track-color);
+}
+
+.horizontal:before {
+    border-top: 2px solid var(--track-color);
+    border-bottom: 2px solid var(--track-color);
+}
+
+.top-and-left:before {
+    border-top: 0;
+    border-bottom:2px solid var(--track-color);
+    border-left: 0;
+    border-right: 2px solid var(--track-color);
+}
+
+.top-and-right:before {
+    border-top: 0;
+    border-bottom:2px solid var(--track-color);
+    border-left: 2px solid var(--track-color);
+    border-right: 0;
 }
 
 .switch {
@@ -80,4 +117,9 @@ main {
 
 .goldenrod {
     background: goldenrod;
+}
+
+.game-over {
+    opacity: 0.5;
+    background: red;
 }

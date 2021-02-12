@@ -3,6 +3,7 @@ const scorecard = document.querySelector('#score');
 const ballColors = ['blue', 'red', 'green', 'goldenrod'];
 const holeColors = ['darkblue', 'darkred', 'darkgreen', 'darkgoldenrod'];
 let score = 0;
+let lives = 10;
 let squares;
 let track;
 let ballSpeed = 500;
@@ -17,13 +18,13 @@ function makeBoard() {
         squares = document.querySelectorAll('.square');
         square.textContent = i;
         if (i % 7 - 3 === 0 || i === 29 || i === 30 || i === 33 || i === 40 || i === 46 || i === 47) square.classList.add('track');
+        if (i % 7 - 3 === 0 || i === 33 || i === 40) square.classList.add('vertical');
+        if (i === 29 || i === 30 || i === 46 || i === 47) square.classList.add('horizontal');
     }
 }
 
-function randomColor() {
-    const number = Math.floor(Math.random() * 4);
-    console.log(number);
-    return ballColors[number];
+function randNum() {
+    return Math.floor(Math.random() * 4);
 }
 
 class Ball {
@@ -31,7 +32,7 @@ class Ball {
     offset = 2;
     color = '';
     constructor() {
-        this.color = randomColor();
+        this.color = ballColors[randNum()];
         squares[this.position].classList.add('ball');
         squares[this.position].classList.add(this.color);
     }
@@ -62,6 +63,11 @@ class Ball {
                 score++;
             } else {
                 score--;
+                lives--;
+            }
+            if (lives === 0) {
+                kill = true;
+                board.classList.add('game-over');
             }
             scorecard.textContent = score;
         }
@@ -81,11 +87,13 @@ class Switch {
     position = 0;
     direction = 0;
     options = [];
-    constructor(p, d, t) {
+    classes = '';
+    constructor(p, d, o, a) {
         this.position = p;
         this.direction = d;
-        this.options = t;
-        squares[p].dataset.value = t[d];
+        this.options = o;
+        this.classes = a;
+        squares[p].dataset.value = o[d];
         squares[p].classList.add('switch');
         squares[p].addEventListener('click', () => this.redirect());
     }
@@ -96,6 +104,7 @@ class Switch {
             this.direction++;
         }
         squares[this.position].dataset.value = this.options[this.direction];
+        squares[this.position].classList.toggle(this.classes);
     }
 }
 
@@ -104,25 +113,25 @@ new Hole(66, holeColors[0], ballColors[0]);
 new Hole(28, holeColors[1], ballColors[1]);
 new Hole(48, holeColors[2], ballColors[2]);
 new Hole(26, holeColors[3], ballColors[3]);
-new Switch(31, 0, [2, 3]);
-new Switch(45, 1, [1, 2]);
-new Switch(47, 1, [0, 1]);
+new Switch(31, 0, [2, 3], "top-and-left");
+new Switch(45, 1, [1, 2], "top-and-right");
+new Switch(47, 1, [0, 1], "top-and-left");
 new Ball().move(ballSpeed);
 
 let ballInterval = function() {
-    new Ball().move(ballSpeed);
-    if (score > 25) {
-        releaseSpeed = 1000;
-    } else if (score > 20) {
-        releaseSpeed = 1600;
-    } else if (score > 15) {
-        releaseSpeed = 2100;
-    } else if (score > 10) {
-        releaseSpeed = 2500;
-    } else if (score > 5) {
-        releaseSpeed = 2800;
-    }
     if (!kill) {
+        new Ball().move(ballSpeed);
+        if (score > 25) {
+            releaseSpeed = 1000;
+        } else if (score > 20) {
+            releaseSpeed = 1600;
+        } else if (score > 15) {
+            releaseSpeed = 2100;
+        } else if (score > 10) {
+            releaseSpeed = 2500;
+        } else if (score > 5) {
+            releaseSpeed = 2800;
+        }
         if (score > -5) setTimeout(ballInterval, releaseSpeed);
     }
 }
