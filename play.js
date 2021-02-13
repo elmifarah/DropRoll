@@ -1,45 +1,22 @@
 const board = document.querySelector('main');
-const scorecard = document.querySelector('#score');
-const ballColors = ['blue', 'red', 'green', 'goldenrod'];
-const holeColors = ['darkblue', 'darkred', 'darkgreen', 'darkgoldenrod'];
-let score = 0;
-let lives = 10;
 let squares;
 let track;
 let ballSpeed = 500;
 let releaseSpeed = 3000;
 let kill = false;
 
-function makeBoard() {
-    for (let i = 0; i < 70; i++) {
-        let square = document.createElement('div');
-        square.classList.add('square');
-        board.appendChild(square);
-        squares = document.querySelectorAll('.square');
-        square.textContent = i;
-        if (i % 7 - 3 === 0 || i === 29 || i === 30 || i === 33 || i === 40 || i === 46 || i === 47) square.classList.add('track');
-        if (i % 7 - 3 === 0 || i === 33 || i === 40) square.classList.add('vertical');
-        if (i === 29 || i === 30 || i === 46 || i === 47) square.classList.add('horizontal');
-    }
-}
-
-function randNum() {
-    return Math.floor(Math.random() * 4);
-}
-
 class Ball {
     position = 3;
     offset = 2;
-    color = '';
     constructor() {
-        this.color = ballColors[randNum()];
-        squares[this.position].classList.add('ball');
-        squares[this.position].classList.add(this.color);
+        let ball = document.createElement('div');
+        ball.classList.add('ball');
+        squares[this.position].appendChild(ball);
+        this.move(ballSpeed, ball);
     }
-    move(interval) {
+    move(interval, ball) {
         let myInterval = setInterval(() => {
-            squares[this.position].classList.remove('ball');
-            squares[this.position].classList.remove(this.color);
+            squares[this.position].removeChild(ball);
             if (squares[this.position].classList.contains('switch')) this.offset = +squares[this.position].dataset.value;
             if (this.offset === 0) {
                 this.position -= 7;
@@ -50,36 +27,22 @@ class Ball {
             } else {
                 this.position -= 1;
             }
-            squares[this.position].classList.add('ball');
-            squares[this.position].classList.add(this.color);
-            this.checkForHole(myInterval);
+            squares[this.position].appendChild(ball);
+            this.checkForHole(myInterval, ball);
         }, interval);
     }
-    checkForHole(myInterval) {
+    checkForHole(myInterval, ball) {
         if (squares[this.position].classList.contains('hole')) {
-            squares[this.position].classList.remove(this.color);
+            squares[this.position].removeChild(ball);
             clearInterval(myInterval);
-            if (squares[this.position].dataset.color === this.color) {
-                score++;
-            } else {
-                score--;
-                lives--;
-            }
-            if (lives === 0) {
-                kill = true;
-                board.classList.add('game-over');
-            }
-            scorecard.textContent = score;
         }
     }
 }
 
 class Hole {
-    constructor(p, hc, bc) {
+    constructor(p) {
         this.position = p;
         squares[this.position].classList.add('hole');
-        squares[this.position].classList.add(hc);
-        squares[this.position].dataset.color = bc;
     }
 }
 
@@ -108,36 +71,44 @@ class Switch {
     }
 }
 
-makeBoard();
-new Hole(66, holeColors[0], ballColors[0]);
-new Hole(28, holeColors[1], ballColors[1]);
-new Hole(48, holeColors[2], ballColors[2]);
-new Hole(26, holeColors[3], ballColors[3]);
-new Switch(31, 0, [2, 3], "top-and-left");
-new Switch(45, 1, [1, 2], "top-and-right");
-new Switch(47, 1, [0, 1], "top-and-left");
-new Ball().move(ballSpeed);
-
-let ballInterval = function() {
-    if (!kill) {
-        new Ball().move(ballSpeed);
-        if (score > 25) {
-            releaseSpeed = 1000;
-        } else if (score > 20) {
-            releaseSpeed = 1600;
-        } else if (score > 15) {
-            releaseSpeed = 2100;
-        } else if (score > 10) {
-            releaseSpeed = 2500;
-        } else if (score > 5) {
-            releaseSpeed = 2800;
-        }
-        if (score > -5) setTimeout(ballInterval, releaseSpeed);
+function makeTracks() {
+    for (let i = 0; i < 70; i++) {
+        let square = document.createElement('div');
+        square.classList.add('square');
+        board.appendChild(square);
+        squares = document.querySelectorAll('.square');
+        square.textContent = i;
+        if (i % 7 - 3 === 0 || i === 29 || i === 30 || i === 33 || i === 40 || i === 46 || i === 47) square.classList.add('track');
+        if (i % 7 - 3 === 0 || i === 33 || i === 40) square.classList.add('vertical');
+        if (i === 29 || i === 30 || i === 46 || i === 47) square.classList.add('horizontal');
     }
 }
+
+function randNum() {
+    return Math.floor(Math.random() * 4);
+}
+
+function ballInterval() {
+    if (!kill) {
+        new Ball();
+        setTimeout(ballInterval, releaseSpeed);
+    }
+}
+
+makeTracks();
+new Hole(66);
+new Hole(28);
+new Hole(48);
+new Hole(26);
+new Switch(31, 0, [2, 3], 'top-and-left');
+new Switch(45, 1, [1, 2], 'top-and-right');
+new Switch(47, 1, [0, 1], 'top-and-left');
+new Ball();
 setTimeout(ballInterval, releaseSpeed);
 
 document.addEventListener('keyup', function(event) {
-    if (event.key === 'k') kill = !kill;
-    if (!kill) setTimeout(ballInterval, releaseSpeed);
+    if (event.key === 'k') {
+        kill = !kill;
+        if (!kill) setTimeout(ballInterval, releaseSpeed);
+    }
 });

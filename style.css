@@ -1,5 +1,6 @@
 html {
-    --track-color: greenyellow;
+    --track-style: 2px solid #66a800;
+    --ball-dimensions: 50px;
 }
 
 body {
@@ -7,7 +8,7 @@ body {
     flex-direction: column;
     justify-content: center;
     min-height: 80vh;
-    background: #111;
+    background: #1d1d1d;
 }
 
 main {
@@ -18,66 +19,22 @@ main {
     margin: auto;
 }
 
-#score {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    width: 50px;
-    height: 50px;
-    color: #ddd;
-    text-align: center;
-    line-height: 50px;
-    background: #000;
-}
-
 .square {
-    width: 50px;
-    height: 50px;
-    outline: 1px solid #333;
-}
-
-.track {
-    position: relative;
-}
-
-.track:before {
-    content: "";
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    top: 0;
-    left: 0;
-}
-
-.vertical:before {
-    border-left: 2px solid var(--track-color);
-    border-right: 2px solid var(--track-color);
-}
-
-.horizontal:before {
-    border-top: 2px solid var(--track-color);
-    border-bottom: 2px solid var(--track-color);
-}
-
-.top-and-left:before {
-    border-top: 0;
-    border-bottom:2px solid var(--track-color);
-    border-left: 0;
-    border-right: 2px solid var(--track-color);
-}
-
-.top-and-right:before {
-    border-top: 0;
-    border-bottom:2px solid var(--track-color);
-    border-left: 2px solid var(--track-color);
-    border-right: 0;
+    width: var(--ball-dimensions);
+    height: var(--ball-dimensions);
+    /*outline: 1px solid #333;*/
 }
 
 .switch {
-    background: rgba(19, 15, 90, 0.5);
+    background: rgba(9, 0, 219, 0.5);
 }
 
 .ball {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--ball-dimensions);
+    height: var(--ball-dimensions);
     background: #ddd;
     border-radius: 100%;
 }
@@ -87,39 +44,39 @@ main {
     border-radius: 0;
 }
 
-.darkblue {
-    background: darkblue;
+.track {
+    position: relative;
 }
 
-.darkred {
-    background: darkred;
+.track:before {
+    content: "";
+    position: absolute;
+    width: var(--ball-dimensions);
+    height: var(--ball-dimensions);
+    top: 0;
+    left: 0;
 }
 
-.darkgreen {
-    background: darkgreen;
+.vertical:before {
+    border-left: var(--track-style);
+    border-right: var(--track-style);
 }
 
-.darkgoldenrod {
-    background: darkgoldenrod;
+.horizontal:before {
+    border-top: var(--track-style);
+    border-bottom: var(--track-style);
 }
 
-.blue {
-    background: blue;
+.top-and-left:before {
+    border-top: 0;
+    border-bottom: var(--track-style);
+    border-left: 0;
+    border-right: var(--track-style);
 }
 
-.red {
-    background: red;
-}
-
-.green {
-    background: green;
-}
-
-.goldenrod {
-    background: goldenrod;
-}
-
-.game-over {
-    opacity: 0.5;
-    background: red;
+.top-and-right:before {
+    border-top: 0;
+    border-bottom: var(--track-style);
+    border-left: var(--track-style);
+    border-right: 0;
 }
