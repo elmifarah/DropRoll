@@ -11,7 +11,7 @@ function makeBoard() {
         square.classList.add('square');
         board.appendChild(square);
         squares = document.querySelectorAll('.square');
-        square.textContent = i;
+        // square.textContent = i;
         if (i % 7 - 3 === 0 || i === 29 || i === 30 || i === 46 || i === 47) square.classList.add('track');
         if (i % 7 - 3 === 0) square.classList.add('vertical');
         if (i === 29 || i === 30 || i === 46 || i === 47) square.classList.add('horizontal');

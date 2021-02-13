@@ -3,7 +3,11 @@ body {
     flex-direction: column;
     justify-content: center;
     min-height: 80vh;
-    background: #111;
+    background-image: url("https://static.wixstatic.com/media/7bfa82_9a569bde173e4ce597d7bba5f33e364a~mv2.png/v1/fill/w_378,h_500,al_c,q_85/7bfa82_9a569bde173e4ce597d7bba5f33e364a~mv2.webp");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 main {
@@ -13,15 +17,23 @@ main {
     height: 500px;
     margin: auto;
 }
+h1 {
+    text-align: center;
+    font-size: 70px;
+    font-family: Farah;
+    color: whitesmoke;
+
+}
 
 .square {
     width: 50px;
     height: 50px;
-    outline: 1px solid #333;
+    outline: 1.5px solid #111;
 }
 
 .track {
     position: relative;
+    background-color: #000;
 }
 
 .track:before {
@@ -32,17 +44,21 @@ main {
 }
 
 .vertical:before {
-    border-left: 2px solid greenyellow;
-    border-right: 2px solid greenyellow;
+    border-left: 2px solid green;
+    border-right: 2px solid green;
 }
 
 .horizontal:before {
-    border-top: 2px solid greenyellow;
-    border-bottom: 2px solid greenyellow;
+    border-top: 2px solid green;
+    border-bottom: 2px solid green;
 }
 
 .switch {
-    background: rgba(19, 15, 90, 1);
+    /*background: rgba(19, 15, 90, 1);*/
+    background-image: url("https://cdn3.vectorstock.com/i/1000x1000/80/27/big-red-button-vector-8548027.jpg");
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: 50px;
 }
 
 .ball {
@@ -51,20 +67,21 @@ main {
 }
 
 .hole {
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.3);
     border-radius: 0;
+
 }
 
 .top-and-left:before {
-    border-right: 2px solid greenyellow;
-    border-bottom:2px solid greenyellow;
+    border-right: 2px solid green;
+    border-bottom:2px solid green;
     border-top: 0;
     border-left: 0;
 }
 
 .top-and-right:before {
-    border-left: 2px solid greenyellow;
-    border-bottom:2px solid greenyellow;
+    border-left: 2px solid green;
+    border-bottom:2px solid green;
     border-top: 0;
     border-right: 0;
 
