@@ -8,10 +8,12 @@ body {
     flex-direction: column;
     justify-content: center;
     min-height: 80vh;
-    background: #1d1d1d;
+    background: #1d1d1d url("https://static.wixstatic.com/media/7bfa82_9a569bde173e4ce597d7bba5f33e364a~mv2.png/v1/fill/w_378,h_500,al_c,q_85/7bfa82_9a569bde173e4ce597d7bba5f33e364a~mv2.webp") no-repeat fixed center;
+    background-size: cover;
 }
 
 main {
+    background-color: #08184a;
     display: flex;
     flex-wrap: wrap;
     width: 350px;
@@ -19,14 +21,31 @@ main {
     margin: auto;
 }
 
-.square {
-    width: var(--ball-dimensions);
-    height: var(--ball-dimensions);
-    /*outline: 1px solid #333;*/
+
+h1 {
+    text-align: center;
+    font-size: 70px;
+    font-family: Farah;
+    color: whitesmoke;
+
 }
 
+.square {
+    outline: 1.5px solid #111;
+    width: var(--ball-dimensions);
+    height: var(--ball-dimensions);
+}
+
+
+
 .switch {
-    background: rgba(9, 0, 219, 0.5);
+    background-color: red;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border-radius: 100%;
+    width:  30px;
+    height: 30px;
 }
 
 .ball {
@@ -40,43 +59,41 @@ main {
 }
 
 .hole {
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.3);
     border-radius: 0;
 }
 
 .track {
-    position: relative;
-}
-
-.track:before {
     content: "";
-    position: absolute;
+    position: relative;
     width: var(--ball-dimensions);
     height: var(--ball-dimensions);
     top: 0;
     left: 0;
+    box-sizing: border-box;
 }
 
-.vertical:before {
+.vertical {
     border-left: var(--track-style);
     border-right: var(--track-style);
 }
 
-.horizontal:before {
+.horizontal {
     border-top: var(--track-style);
     border-bottom: var(--track-style);
 }
 
-.top-and-left:before {
+.top-and-left {
     border-top: 0;
     border-bottom: var(--track-style);
     border-left: 0;
     border-right: var(--track-style);
 }
 
-.top-and-right:before {
+.top-and-right {
     border-top: 0;
     border-bottom: var(--track-style);
     border-left: var(--track-style);
     border-right: 0;
 }
+

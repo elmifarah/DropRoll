@@ -4,7 +4,6 @@ let track;
 let ballSpeed = 500;
 let releaseSpeed = 3000;
 let kill = false;
-
 class Ball {
     position = 3;
     offset = 2;
@@ -17,7 +16,7 @@ class Ball {
     move(interval, ball) {
         let myInterval = setInterval(() => {
             squares[this.position].removeChild(ball);
-            if (squares[this.position].classList.contains('switch')) this.offset = +squares[this.position].dataset.value;
+            if (squares[this.position].classList.contains('switch-container')) this.offset = +squares[this.position].dataset.value;
             if (this.offset === 0) {
                 this.position -= 7;
             } else if (this.offset === 1) {
@@ -38,14 +37,12 @@ class Ball {
         }
     }
 }
-
 class Hole {
     constructor(p) {
         this.position = p;
         squares[this.position].classList.add('hole');
     }
 }
-
 class Switch {
     position = 0;
     direction = 0;
@@ -57,7 +54,10 @@ class Switch {
         this.options = o;
         this.classes = a;
         squares[p].dataset.value = o[d];
-        squares[p].classList.add('switch');
+        squares[p].classList.add("switch-container")
+        let mySwitch = document.createElement('button');
+        mySwitch.classList.add('switch');
+        squares[this.position].appendChild(mySwitch);
         squares[p].addEventListener('click', () => this.redirect());
     }
     redirect() {
@@ -70,31 +70,27 @@ class Switch {
         squares[this.position].classList.toggle(this.classes);
     }
 }
-
 function makeTracks() {
     for (let i = 0; i < 70; i++) {
         let square = document.createElement('div');
         square.classList.add('square');
         board.appendChild(square);
         squares = document.querySelectorAll('.square');
-        square.textContent = i;
+        // square.textContent = i;
         if (i % 7 - 3 === 0 || i === 29 || i === 30 || i === 33 || i === 40 || i === 46 || i === 47) square.classList.add('track');
         if (i % 7 - 3 === 0 || i === 33 || i === 40) square.classList.add('vertical');
         if (i === 29 || i === 30 || i === 46 || i === 47) square.classList.add('horizontal');
     }
 }
-
 function randNum() {
     return Math.floor(Math.random() * 4);
 }
-
 function ballInterval() {
     if (!kill) {
         new Ball();
         setTimeout(ballInterval, releaseSpeed);
     }
 }
-
 makeTracks();
 new Hole(66);
 new Hole(28);
@@ -105,7 +101,6 @@ new Switch(45, 1, [1, 2], 'top-and-right');
 new Switch(47, 1, [0, 1], 'top-and-left');
 new Ball();
 setTimeout(ballInterval, releaseSpeed);
-
 document.addEventListener('keyup', function(event) {
     if (event.key === 'k') {
         kill = !kill;
