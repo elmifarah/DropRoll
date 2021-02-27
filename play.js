@@ -1,9 +1,11 @@
 const board = document.querySelector('main');
+
 let squares;
 let track;
 let ballSpeed = 500;
 let releaseSpeed = 3000;
 let kill = false;
+
 class Ball {
     position = 3;
     offset = 2;
@@ -17,18 +19,22 @@ class Ball {
         let myInterval = setInterval(() => {
             squares[this.position].removeChild(ball);
             if (squares[this.position].classList.contains('switch-container')) this.offset = +squares[this.position].dataset.value;
-            if (this.offset === 0) {
-                this.position -= 7;
-            } else if (this.offset === 1) {
-                this.position += 1;
-            } else if (this.offset === 2) {
-                this.position += 7;
-            } else {
-                this.position -= 1;
-            }
+            this.direction();
             squares[this.position].appendChild(ball);
             this.checkForHole(myInterval, ball);
         }, interval);
+    }
+    direction() {
+        switch (this.offset) {
+            case 0: this.position -= 7;
+            break;
+            case 1: this.position += 1;
+            break;
+            case 2: this.position += 7;
+            break;
+            case 3: this.position -= 1;
+            break;
+        }
     }
     checkForHole(myInterval, ball) {
         if (squares[this.position].classList.contains('hole')) {
@@ -37,12 +43,14 @@ class Ball {
         }
     }
 }
+
 class Hole {
     constructor(p) {
         this.position = p;
         squares[this.position].classList.add('hole');
     }
 }
+
 class Switch {
     position = 0;
     direction = 0;
@@ -70,6 +78,7 @@ class Switch {
         squares[this.position].classList.toggle(this.classes);
     }
 }
+
 function makeTracks() {
     for (let i = 0; i < 70; i++) {
         let square = document.createElement('div');
@@ -91,6 +100,7 @@ function ballInterval() {
         setTimeout(ballInterval, releaseSpeed);
     }
 }
+
 makeTracks();
 new Hole(66);
 new Hole(28);
@@ -100,6 +110,7 @@ new Switch(31, 0, [2, 3], 'top-and-left');
 new Switch(45, 1, [1, 2], 'top-and-right');
 new Switch(47, 1, [0, 1], 'top-and-left');
 new Ball();
+
 setTimeout(ballInterval, releaseSpeed);
 document.addEventListener('keyup', function(event) {
     if (event.key === 'k') {
