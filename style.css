@@ -3,20 +3,25 @@ html {
     --ball-dimensions: 50px;
 }
 
+
 body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     min-height: 80vh;
     background: #1d1d1d url("https://static.wixstatic.com/media/7bfa82_9a569bde173e4ce597d7bba5f33e364a~mv2.png/v1/fill/w_378,h_500,al_c,q_85/7bfa82_9a569bde173e4ce597d7bba5f33e364a~mv2.webp") no-repeat fixed center;
     background-size: cover;
+}
+
+#container{
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
 }
 
 main {
     background-color: #08184a;
     display: flex;
     flex-wrap: wrap;
-    width: 350px;
     height: 500px;
     margin: auto;
 }
@@ -27,6 +32,7 @@ h1 {
     font-size: 70px;
     font-family: Farah;
     color: whitesmoke;
+    margin: 10px auto 15px auto;
 
 }
 
@@ -59,7 +65,7 @@ h1 {
 }
 
 .hole {
-    background: rgba(0, 0, 0, 0.3);
+    opacity: 0.6;
     border-radius: 0;
 }
 
@@ -97,3 +103,34 @@ h1 {
     border-right: 0;
 }
 
+.color0 {
+    background-color: #3b6e0b;
+
+}
+
+.color1 {
+    background-color: #3e2de2;
+}
+
+.color2 {
+    background-color: #f5f520;
+}
+
+.color3 {
+    background-color: #f80421;
+}
+
+.hole {
+
+}
+
+#score{
+    text-align: center;
+    line-height: 25px;
+    color: #dddddd;
+    background-color: #5656ae;
+    opacity: 0.6;
+    width: 80px;
+    height: 25px;
+    margin: auto 0 20px auto ;
+}

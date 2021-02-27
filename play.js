@@ -15,8 +15,10 @@ class Ball {
     constructor() {
         let ball = document.createElement('div');
         ball.classList.add('ball');
+        ball.classList.add('color' + randNum());
         squares[this.position].appendChild(ball);
         this.move(ballSpeed, ball);
+
     }
     move(interval, ball) {
         let myInterval = setInterval(() => {
@@ -48,9 +50,10 @@ class Ball {
 }
 
 class Hole {
-    constructor(p) {
-        this.position = p;
+    constructor(h,i) {
+        this.position = h;
         squares[this.position].classList.add('hole');
+        squares[this.position].classList.add('color' + i);
     }
 }
 
@@ -110,8 +113,9 @@ function ballInterval() {
     }
 }
 
+
 makeTracks();
-for (const h of holes) new Hole(h);
+holes.forEach((h,i) => new Hole(h,i));
 new Switch(31, 0, [2, 3], 'top-and-left');
 new Switch(45, 1, [1, 2], 'top-and-right');
 new Switch(47, 1, [0, 1], 'top-and-left');
@@ -125,3 +129,4 @@ document.addEventListener('keyup', function(event) {
         if (!kill) setTimeout(ballInterval, releaseSpeed);
     }
 });
+
