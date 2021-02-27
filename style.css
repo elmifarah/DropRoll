@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Akaya+Telivigala&display=swap');
+
 html {
     --track-style: 2px solid #66a800;
     --ball-dimensions: 50px;
 }
-
 
 body {
     min-height: 80vh;
@@ -10,7 +11,7 @@ body {
     background-size: cover;
 }
 
-#container{
+#container {
     width: 350px;
     display: flex;
     flex-direction: column;
@@ -26,23 +27,20 @@ main {
     margin: auto;
 }
 
-
 h1 {
     text-align: center;
-    font-size: 70px;
-    font-family: Farah;
+    font-size: 40px;
+    font-family: 'Akaya Telivigala', serif;
     color: whitesmoke;
-    margin: 10px auto 15px auto;
+    margin: 20px auto;
 
 }
 
 .square {
-    outline: 1.5px solid #111;
+    /*outline: 1.5px solid #111;*/
     width: var(--ball-dimensions);
     height: var(--ball-dimensions);
 }
-
-
 
 .switch {
     background-color: red;
@@ -120,11 +118,7 @@ h1 {
     background-color: #f80421;
 }
 
-.hole {
-
-}
-
-#score{
+#score {
     text-align: center;
     line-height: 25px;
     color: #dddddd;

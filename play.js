@@ -3,6 +3,7 @@ const dimensions = [7, 10];
 const verticalSquares = [33, 40];
 const horizontalSquares = [29, 30, 46, 47];
 const holes = [66, 28, 48, 26];
+const colors = 4;
 let squares;
 let track;
 let ballSpeed = 500;
@@ -18,7 +19,6 @@ class Ball {
         ball.classList.add('color' + randNum());
         squares[this.position].appendChild(ball);
         this.move(ballSpeed, ball);
-
     }
     move(interval, ball) {
         let myInterval = setInterval(() => {
@@ -62,13 +62,13 @@ class Switch {
     direction = 0;
     options = [];
     classes = '';
-    constructor(p, d, o, a) {
+    constructor(p, d, o, c) {
         this.position = p;
         this.direction = d;
         this.options = o;
-        this.classes = a;
+        this.classes = c;
         squares[p].dataset.value = o[d];
-        squares[p].classList.add("switch-container")
+        squares[p].classList.add('switch-container')
         let mySwitch = document.createElement('button');
         mySwitch.classList.add('switch');
         squares[this.position].appendChild(mySwitch);
@@ -92,7 +92,7 @@ function makeTracks() {
         square.classList.add('square');
         board.appendChild(square);
         squares = document.querySelectorAll('.square');
-        square.textContent = i.toString();
+        // square.textContent = i.toString();
         if (isMainTrack(i) || verticalSquares.includes(i)) square.classList.add('track', 'vertical');
         if (horizontalSquares.includes(i)) square.classList.add('track', 'horizontal');
     }
@@ -103,7 +103,7 @@ function isMainTrack(i) {
 }
 
 function randNum() {
-    return Math.floor(Math.random() * 4);
+    return Math.floor(Math.random() * colors);
 }
 
 function ballInterval() {
