@@ -1,5 +1,8 @@
 const board = document.querySelector('main');
-
+const dimensions = [7, 10];
+const verticalSquares = [33, 40];
+const horizontalSquares = [29, 30, 46, 47];
+const holes = [66, 28, 48, 26];
 let squares;
 let track;
 let ballSpeed = 500;
@@ -26,14 +29,14 @@ class Ball {
     }
     direction() {
         switch (this.offset) {
-            case 0: this.position -= 7;
-            break;
+            case 0: this.position -= dimensions[0];
+                break;
             case 1: this.position += 1;
-            break;
-            case 2: this.position += 7;
-            break;
+                break;
+            case 2: this.position += dimensions[0];
+                break;
             case 3: this.position -= 1;
-            break;
+                break;
         }
     }
     checkForHole(myInterval, ball) {
@@ -80,20 +83,26 @@ class Switch {
 }
 
 function makeTracks() {
-    for (let i = 0; i < 70; i++) {
+    const totalSquares = dimensions[0] * dimensions[1];
+    for (let i = 0; i < totalSquares; i++) {
         let square = document.createElement('div');
         square.classList.add('square');
         board.appendChild(square);
         squares = document.querySelectorAll('.square');
-        // square.textContent = i;
-        if (i % 7 - 3 === 0 || i === 29 || i === 30 || i === 33 || i === 40 || i === 46 || i === 47) square.classList.add('track');
-        if (i % 7 - 3 === 0 || i === 33 || i === 40) square.classList.add('vertical');
-        if (i === 29 || i === 30 || i === 46 || i === 47) square.classList.add('horizontal');
+        square.textContent = i.toString();
+        if (isMainTrack(i) || verticalSquares.includes(i)) square.classList.add('track', 'vertical');
+        if (horizontalSquares.includes(i)) square.classList.add('track', 'horizontal');
     }
 }
+
+function isMainTrack(i) {
+    return i % dimensions[0] - Math.floor(dimensions[0] / 2) === 0;
+}
+
 function randNum() {
     return Math.floor(Math.random() * 4);
 }
+
 function ballInterval() {
     if (!kill) {
         new Ball();
@@ -102,16 +111,14 @@ function ballInterval() {
 }
 
 makeTracks();
-new Hole(66);
-new Hole(28);
-new Hole(48);
-new Hole(26);
+for (const h of holes) new Hole(h);
 new Switch(31, 0, [2, 3], 'top-and-left');
 new Switch(45, 1, [1, 2], 'top-and-right');
 new Switch(47, 1, [0, 1], 'top-and-left');
 new Ball();
 
 setTimeout(ballInterval, releaseSpeed);
+
 document.addEventListener('keyup', function(event) {
     if (event.key === 'k') {
         kill = !kill;
