@@ -3,16 +3,18 @@
 html {
     --track-style: 2px solid #66a800;
     --ball-dimensions: 50px;
+    --board-width: 9;
+    --board-height: 10;
 }
 
 body {
     min-height: 80vh;
-    background: #1d1d1d url("https://static.wixstatic.com/media/7bfa82_9a569bde173e4ce597d7bba5f33e364a~mv2.png/v1/fill/w_378,h_500,al_c,q_85/7bfa82_9a569bde173e4ce597d7bba5f33e364a~mv2.webp") no-repeat fixed center;
+    background: #1d1d1d url('https://static.wixstatic.com/media/7bfa82_9a569bde173e4ce597d7bba5f33e364a~mv2.png/v1/fill/w_378,h_500,al_c,q_85/7bfa82_9a569bde173e4ce597d7bba5f33e364a~mv2.webp') no-repeat fixed center;
     background-size: cover;
 }
 
 #container {
-    width: 350px;
+    width: calc(var(--ball-dimensions) * var(--board-width));
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -43,7 +45,7 @@ h1 {
 }
 
 .switch {
-    background-color: red;
+    background-color: #ff0000;
     position: absolute;
     top: 10px;
     left: 10px;
@@ -68,7 +70,7 @@ h1 {
 }
 
 .track {
-    content: "";
+    content: '';
     position: relative;
     width: var(--ball-dimensions);
     height: var(--ball-dimensions);

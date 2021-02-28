@@ -1,8 +1,8 @@
 const board = document.querySelector('main');
-const dimensions = [7, 10];
-const verticalSquares = [33, 40];
-const horizontalSquares = [29, 30, 46, 47];
-const holes = [66, 28, 48, 26];
+const dimensions = [9, 10];
+const verticalSquares = [33, 42, 51];
+const horizontalSquares = [29, 30, 59, 60];
+const holes = [85, 28, 61, 24];
 const colors = 4;
 let squares;
 let track;
@@ -11,7 +11,7 @@ let releaseSpeed = 3000;
 let kill = false;
 
 class Ball {
-    position = 3;
+    position = Math.floor(dimensions[0] / 2);
     offset = 2;
     constructor() {
         let ball = document.createElement('div');
@@ -92,7 +92,7 @@ function makeTracks() {
         square.classList.add('square');
         board.appendChild(square);
         squares = document.querySelectorAll('.square');
-        // square.textContent = i.toString();
+        square.textContent = i.toString();
         if (isMainTrack(i) || verticalSquares.includes(i)) square.classList.add('track', 'vertical');
         if (horizontalSquares.includes(i)) square.classList.add('track', 'horizontal');
     }
@@ -113,12 +113,11 @@ function ballInterval() {
     }
 }
 
-
 makeTracks();
 holes.forEach((h,i) => new Hole(h,i));
 new Switch(31, 0, [2, 3], 'top-and-left');
-new Switch(45, 1, [1, 2], 'top-and-right');
-new Switch(47, 1, [0, 1], 'top-and-left');
+new Switch(58, 1, [1, 2], 'top-and-right');
+new Switch(60, 1, [0, 1], 'top-and-left');
 new Ball();
 
 setTimeout(ballInterval, releaseSpeed);
@@ -129,4 +128,3 @@ document.addEventListener('keyup', function(event) {
         if (!kill) setTimeout(ballInterval, releaseSpeed);
     }
 });
-
