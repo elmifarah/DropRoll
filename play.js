@@ -1,10 +1,12 @@
 const board = document.querySelector('main');
-const dimensions = [9, 10];
+const dimensions = [9, 9];
+const scoreboard   = document.querySelector('#score');
 const verticalSquares = [33, 42, 51];
 const horizontalSquares = [29, 30, 59, 60];
-const holes = [85, 28, 61, 24];
+const holes = [76,28, 61, 24];
 const colors = 4;
 let squares;
+let score = 0;
 let track;
 let ballSpeed = 500;
 let releaseSpeed = 3000;
@@ -13,10 +15,12 @@ let kill = false;
 class Ball {
     position = Math.floor(dimensions[0] / 2);
     offset = 2;
+    color = '';
     constructor() {
         let ball = document.createElement('div');
         ball.classList.add('ball');
-        ball.classList.add('color' + randNum());
+        this.color = 'color' + randNum();
+        ball.classList.add(this.color);
         squares[this.position].appendChild(ball);
         this.move(ballSpeed, ball);
     }
@@ -45,6 +49,10 @@ class Ball {
         if (squares[this.position].classList.contains('hole')) {
             squares[this.position].removeChild(ball);
             clearInterval(myInterval);
+            if (squares[this.position].classList.contains(this.color)) {
+                score++
+                scoreboard.textContent = score
+            };
         }
     }
 }

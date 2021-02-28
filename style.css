@@ -4,7 +4,7 @@ html {
     --track-style: 2px solid #66a800;
     --ball-dimensions: 50px;
     --board-width: 9;
-    --board-height: 10;
+    --board-height: 9;
 }
 
 body {
@@ -25,7 +25,7 @@ main {
     background-color: #08184a;
     display: flex;
     flex-wrap: wrap;
-    height: 500px;
+    height: calc(var(--ball-dimensions) * var(--board-height));
     margin: auto;
 }
 
