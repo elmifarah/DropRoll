@@ -32,7 +32,8 @@ main {
 h1 {
     text-align: center;
     font-size: 40px;
-    font-family: 'Akaya Telivigala', serif;
+    font-family: 'Libre Baskerville', serif;
+    font-family: 'Roboto', sans-serif;
     color: whitesmoke;
     margin: 20px auto;
 
@@ -120,13 +121,57 @@ h1 {
     background-color: #f80421;
 }
 
-#score {
+#gameContent {
+    height: 25px;
+    display: flex;
+    margin: 15px 0;
+}
+
+#Scoreboard {
     text-align: center;
     line-height: 25px;
     color: #dddddd;
     background-color: #5656ae;
     opacity: 0.6;
     width: 80px;
-    height: 25px;
+    height: 100%;
     margin: auto 0 20px auto ;
+}
+
+progress {
+    appearance: none;
+    width: 100px;
+    height: 70%;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #08184a;
+    border-radius: 4px;
+}
+
+progress::-webkit-progress-value {
+    background-color: #217b96;
+    border-radius: 7px;
+}
+progress::-moz-progress-bar {
+    /* style rules */
+    background-color: #08184a;
+    border-radius: 4px;
+}
+
+progress.dangerZone::-webkit-progress-value{
+    background-color: #be1010;
+}
+
+#Endgame {
+    position: fixed;
+    width: 80%;
+    height: 80%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background: rgba(186, 51, 137, 0.7);
+    z-index: 10;
 }

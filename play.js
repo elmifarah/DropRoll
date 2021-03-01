@@ -1,10 +1,12 @@
 const board = document.querySelector('main');
 const dimensions = [9, 9];
-const scoreboard   = document.querySelector('#score');
+const scoreboard   = document.querySelector('#Scoreboard');
 const verticalSquares = [33, 42, 51];
 const horizontalSquares = [29, 30, 59, 60];
 const holes = [76,28, 61, 24];
 const colors = 4;
+let lives = 5;
+const lifeboard = document.querySelector('#Lives');
 let squares;
 let score = 0;
 let track;
@@ -52,7 +54,16 @@ class Ball {
             if (squares[this.position].classList.contains(this.color)) {
                 score++
                 scoreboard.textContent = score
-            };
+            } else {
+                lives--
+                lifeboard.value = lives
+            }
+            if (lives === 2) {
+                lifeboard.classList.add('dangerZone');
+            }
+            if (lives === 0) {
+                kill = true
+            }
         }
     }
 }
