@@ -66,7 +66,7 @@ class Ball {
                 document.getElementById('Endgame').classList.remove('Hidden')
                 document.getElementById('EndGameScore').innerText = score
             }
-            if (score === 1) {
+            if (score === 15 && lives > 0) {
                 kill = true
                 document.getElementById('NextLevel').classList.remove('Hidden')
             }
